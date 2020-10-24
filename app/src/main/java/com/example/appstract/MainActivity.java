@@ -2,69 +2,58 @@ package com.example.appstract;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.appstract.serverconnection.DownloadImageTask;
 import com.example.appstract.serverconnection.UnsafeClientFactory;
 
-import java.io.IOException;
+//import org.apache.commons.io.IOUtils;
 
+import org.apache.commons.io.IOUtils;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okio.Buffer;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView textView;
-
-    //somehow this async code needs to be moved out into its own class - idk how yet
-    private class DownloadWebPageTask extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... urls) {
-            OkHttpClient client = UnsafeClientFactory.getUnsafeOkHttpClient();
-
-            Request request = new Request.Builder()
-                            .url(urls[0])
-                            .build();
-
-            Response response = null;
-
-            try {
-                response = client.newCall(request).execute();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            if (response.isSuccessful()) {
-                try {
-                    return response.body().string();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            return "Connection failed I guess?";
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            textView.setText(result);
-        }
-    }
+    MainActivity selfReference = this;
+    private ImageView mImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = (TextView) findViewById(R.id.textView);
+        mImageView = (ImageView) findViewById(R.id.main_image_view);
     }
 
-    public void moveToQuestion(View view) throws InterruptedException {
-        DownloadWebPageTask task = new DownloadWebPageTask();
-        task.execute(new String[] { "https://34.72.56.190/" });
-    }
+    public void moveToQuestion(View view) throws InterruptedException, IOException {
+        new DownloadImageTask(this).execute("https://34.72.56.190/get-image/man2.jpg");
 
+        Intent intent = new Intent(this, QuestionActivity.class);
+        startActivity(intent);
+    }
 }
