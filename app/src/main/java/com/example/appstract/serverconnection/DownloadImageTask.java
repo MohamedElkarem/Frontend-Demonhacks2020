@@ -41,6 +41,8 @@ public class DownloadImageTask extends AsyncTask<String, Void, Boolean> {
 
         Request request = new Request.Builder()
                 .url(urls[0])
+                .addHeader("Connection","close")
+                .addHeader("content-type", "application/jpeg")
                 .build();
 
         Response response = null;
@@ -53,18 +55,21 @@ public class DownloadImageTask extends AsyncTask<String, Void, Boolean> {
 
         if (response.isSuccessful()) {
             try {
-                InputStream inputStream = response.body().byteStream();
+                byte[] bytes = response.body().bytes();
 
                 File file = new File(fileContext.getFilesDir(), fileName);
 
                 OutputStream outputStream = new FileOutputStream(file);
-
+                outputStream.write(bytes);
                 // write the inputStream to a FileOutputStream
-                IOUtils.copy(inputStream, outputStream);
+//                IOUtils.copy(inputStream, outputStream);
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                response.close();
             }
         }
+
         return true;
     }
 

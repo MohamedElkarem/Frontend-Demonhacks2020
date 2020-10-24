@@ -30,10 +30,10 @@ public class QuestionActivity extends AppCompatActivity {
     public void moveToBoard(View view) throws ExecutionException, InterruptedException {
         String problemPool = getString(R.string.problem_pool);
 
-        final ArrayList<String> targetFiles = new GetImageListTask(problemPool).execute("https://34.72.56.190/generate-board").get();
+        final ArrayList<String> targetFiles = new GetImageListTask(problemPool).execute("https://34.72.56.190:443/generate-board").get();
 
         for(String fileName : targetFiles){
-            new DownloadImageTask(this, fileName).execute("https://34.72.56.190/get-image/"+fileName);
+            new DownloadImageTask(this, fileName).execute("https://34.72.56.190:443/get-image/"+fileName);
         }
 
         Intent intent = new Intent(this, BoardActivity.class);
