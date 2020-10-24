@@ -8,9 +8,11 @@ import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.File;
@@ -27,33 +29,20 @@ public class BoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
 
-        // Create a ConstraintLayout in which to add the ImageView
-        constraintLayout = new ConstraintLayout(this);
-
-        //The below is a proof of concept in how to extract the files once they are loaded on disk
-        mTextView = (TextView) findViewById(R.id.text);
-
         ArrayList<String> fileNames = getIntent().getExtras().getStringArrayList("file_names");
 
-        for(String fileName : fileNames){
-            File file = new File(this.getFilesDir(), fileName);
+        RelativeLayout relativeLayout = findViewById(R.id.board_relative_layout);
 
-            // Instantiate an ImageView and define its properties
-            ImageView i = new ImageView(this);
+        for(int i = 0; i< relativeLayout.getChildCount(); i++){
 
-            i.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
-            i.setContentDescription("bruv");
+            View targetView = relativeLayout.getChildAt(i);
+            if (targetView instanceof ImageView) {
+                ImageView imageView = (ImageView) targetView;
 
-            // set the ImageView bounds to match the Drawable's dimensions
-            i.setAdjustViewBounds(true);
-            i.setLayoutParams(new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
+                File file = new File(this.getFilesDir(), fileNames.get(i));
 
-             //Add the ImageView to the layout and set the layout as the content view.
-             constraintLayout.addView(i);
+                imageView.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+            }
         }
-
-        setContentView(constraintLayout);
     }
 }

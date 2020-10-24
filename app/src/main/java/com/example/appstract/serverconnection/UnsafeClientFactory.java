@@ -59,7 +59,7 @@ public final class UnsafeClientFactory {
                 }
             });
 
-            OkHttpClient okHttpClient = builder.build();
+            OkHttpClient okHttpClient = builder.retryOnConnectionFailure(true).build();
             return okHttpClient;
         } catch (Exception e) {
             throw new RuntimeException(e);
