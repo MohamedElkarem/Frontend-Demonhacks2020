@@ -7,18 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class QuestionActivity extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_question);
     }
 
-    public void moveToQuestion(View view) {
-        Intent intent = new Intent(this, QuestionActivity.class);
+    public void moveToBoard(View view) {
+        Intent intent = new Intent(this, BoardActivity.class);
         startActivity(intent);
     }
-
 }
