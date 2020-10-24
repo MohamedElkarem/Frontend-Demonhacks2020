@@ -7,4 +7,32 @@
     -->
     <string name="hello_world">Hello Square World!</string>
     <string name="title_activity_board">BoardActivity</string>
+    <string name="problem_pool">
+        {
+            \"questions\": [
+                {
+                    \"q1\": \"How are you feeling today?\",
+                    \"a_type\": \"str\"
+                },
+                {
+                    \"q2\": \"What colors do you see around you right now?\",
+                    \"options\": [\"blue\", \"red\", \"green\", \"orange\"],
+                    \"a_type\": \"str\"
+                },
+                {
+                    \"q3\": \"What scares you the most?\",
+                    \"a_type\": \"str\"
+                },
+                {
+                    \"q4\": \"Choose one of the following words\",
+                    \"options\": [\"blues\", \"whimsical\", \"fatigue\", \"elevate\"],
+                    \"a_type\": \"str\"
+                },
+                {
+                    \"q5\": \"What is the last food you ate?\",
+                    \"a_type\": \"str\"
+                }
+            ]
+        }
+    </string>
 </resources>

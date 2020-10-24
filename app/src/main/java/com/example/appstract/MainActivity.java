@@ -17,6 +17,7 @@ import com.example.appstract.serverconnection.UnsafeClientFactory;
 //import org.apache.commons.io.IOUtils;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -29,6 +30,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.List;
 
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
@@ -51,7 +54,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void moveToQuestion(View view) throws InterruptedException, IOException {
-        new DownloadImageTask(this).execute("https://34.72.56.190/get-image/man2.jpg");
+
+        String problemPool = getString(R.string.problem_pool);
+
+        new DownloadImageTask(this, problemPool, Arrays.asList("vlad.jpg")).execute("https://34.72.56.190/generate-board");
 
         Intent intent = new Intent(this, QuestionActivity.class);
         startActivity(intent);

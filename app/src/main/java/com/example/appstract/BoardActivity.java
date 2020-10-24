@@ -27,7 +27,7 @@ public class BoardActivity extends AppCompatActivity {
         //The below is a proof of concept in how to extract the files once they are loaded on disk
         mTextView = (TextView) findViewById(R.id.text);
 
-        File file = new File(this.getFilesDir(), "mans.jpg");
+        File file = new File(this.getFilesDir(), "vlad.jpg");
 
         Boolean x = file.exists();
 
