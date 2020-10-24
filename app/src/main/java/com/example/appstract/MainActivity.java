@@ -7,11 +7,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.appstract.serverconnection.DownloadImageTask;
+import com.example.appstract.serverconnection.GetImageListTask;
 import com.example.appstract.serverconnection.UnsafeClientFactory;
 
 //import org.apache.commons.io.IOUtils;
@@ -32,6 +34,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
@@ -53,13 +56,9 @@ public class MainActivity extends AppCompatActivity {
         mImageView = (ImageView) findViewById(R.id.main_image_view);
     }
 
-    public void moveToQuestion(View view) throws InterruptedException, IOException {
-
-        String problemPool = getString(R.string.problem_pool);
-
-        new DownloadImageTask(this, problemPool, Arrays.asList("vlad.jpg")).execute("https://34.72.56.190/generate-board");
-
+    public void moveToQuestion(View view) throws InterruptedException, IOException, ExecutionException {
         Intent intent = new Intent(this, QuestionActivity.class);
+
         startActivity(intent);
     }
 }

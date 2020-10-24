@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -21,26 +22,30 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 
-public class DownloadImageTask extends AsyncTask<String, Void, Boolean> {
+public class GetImageListTask extends AsyncTask<String, Void, ArrayList<String>> {
 
     Context fileContext;
-    String fileName;
+    String questionJson;
+    ArrayList<String> fileNames;
+    public static final MediaType JSON
+            = MediaType.parse("application/json; charset=utf-8");
 
-    public DownloadImageTask(Context context, String fn) {
-        fileContext = context;
-        fileName = fn;
+    public GetImageListTask(String requestData) {
+        questionJson = requestData;
     }
 
-    protected Boolean doInBackground(String... urls) {
+    protected ArrayList<String> doInBackground(String... urls) {
 
         final OkHttpClient client = UnsafeClientFactory.getUnsafeOkHttpClient();
 
         Request request = new Request.Builder()
                 .url(urls[0])
+                .post(RequestBody.create(questionJson, JSON))
                 .build();
 
         Response response = null;
@@ -50,24 +55,21 @@ public class DownloadImageTask extends AsyncTask<String, Void, Boolean> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        ArrayList<String> targetFiles = new ArrayList<>();
         if (response.isSuccessful()) {
             try {
-                InputStream inputStream = response.body().byteStream();
+                JsonElement jsonList = JsonParser.parseString(response.body().string());
 
-                File file = new File(fileContext.getFilesDir(), fileName);
-
-                OutputStream outputStream = new FileOutputStream(file);
-
-                // write the inputStream to a FileOutputStream
-                IOUtils.copy(inputStream, outputStream);
+                for(JsonElement ele : jsonList.getAsJsonArray()){
+                    targetFiles.add(ele.toString().replaceAll("^\"|\"$", ""));
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return true;
+        return targetFiles;
     }
 
-    protected void onPostExecute(Boolean result) {
+    protected void onPostExecute(List<String> result) {
     }
 }

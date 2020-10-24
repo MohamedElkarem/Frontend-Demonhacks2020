@@ -3,6 +3,8 @@ package com.example.appstract;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -12,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BoardActivity extends AppCompatActivity {
 
@@ -23,30 +27,32 @@ public class BoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_board);
 
+        // Create a ConstraintLayout in which to add the ImageView
+        constraintLayout = new ConstraintLayout(this);
 
         //The below is a proof of concept in how to extract the files once they are loaded on disk
         mTextView = (TextView) findViewById(R.id.text);
 
-        File file = new File(this.getFilesDir(), "vlad.jpg");
+        ArrayList<String> fileNames = getIntent().getExtras().getStringArrayList("file_names");
 
-        Boolean x = file.exists();
+        for(String fileName : fileNames){
+            File file = new File(this.getFilesDir(), fileName);
 
-        // Create a ConstraintLayout in which to add the ImageView
-        constraintLayout = new ConstraintLayout(this);
+            // Instantiate an ImageView and define its properties
+            ImageView i = new ImageView(this);
 
-        // Instantiate an ImageView and define its properties
-        ImageView i = new ImageView(this);
-        i.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
-        i.setContentDescription("bruv");
+            i.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+            i.setContentDescription("bruv");
 
-        // set the ImageView bounds to match the Drawable's dimensions
-        i.setAdjustViewBounds(true);
-        i.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
+            // set the ImageView bounds to match the Drawable's dimensions
+            i.setAdjustViewBounds(true);
+            i.setLayoutParams(new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
 
-        // Add the ImageView to the layout and set the layout as the content view.
-        constraintLayout.addView(i);
+             //Add the ImageView to the layout and set the layout as the content view.
+             constraintLayout.addView(i);
+        }
 
         setContentView(constraintLayout);
     }
