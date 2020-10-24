@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/box_inset_layout_padding"
+    tools:context=".QuestionActivity"
+    tools:deviceIds="wear">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/inner_frame_layout_padding">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="250dp"
+            android:layout_height="125dp"
+            android:text="this is where the questions will go"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/boardButton"
+            android:layout_width="158dp"
+            android:layout_height="135dp"
+            android:onClick="moveToBoard"
+            android:text="Button" />
+
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
