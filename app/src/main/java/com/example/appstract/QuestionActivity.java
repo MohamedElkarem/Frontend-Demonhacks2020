@@ -28,7 +28,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     public void moveToBoard(View view) throws ExecutionException, InterruptedException {
-        String problemPool = getString(R.string.problem_pool);
+        String problemPool = getString(R.string.answer1);
 
         final ArrayList<String> targetFiles = new GetImageListTask(problemPool).execute("https://34.72.56.190:443/generate-board").get();
 

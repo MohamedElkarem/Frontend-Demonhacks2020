@@ -31,6 +31,42 @@
                 {
                     \"q5\": \"What is the last food you ate?\",
                     \"a_type\": \"str\"
+                },
+                {
+                    \"q6\": \"Close your eyes and imagine yourself in a different place. Where are you?\",
+                    \"a_type\": \"str\"
+                }
+            ]
+        }
+    </string>
+    <string name="answer1">
+        {
+            \"questions\": [
+                {
+                    \"q1\": \"How are you feeling today?\",
+                    \"a_type\": \"Happy\"
+                },
+                {
+                    \"q2\": \"What colors do you see around you right now?\",
+                    \"options\": [\"blue\", \"red\", \"green\", \"orange\"],
+                    \"a_type\": [\"blue\", \"red\"]
+                },
+                {
+                    \"q3\": \"What scares you the most?\",
+                    \"a_type\": \"The Dark\"
+                },
+                {
+                    \"q4\": \"Choose one of the following words\",
+                    \"options\": [\"blues\", \"whimsical\", \"fatigue\", \"elevate\"],
+                    \"a_type\": \"elevate\"
+                },
+                {
+                    \"q5\": \"What is the last food you ate?\",
+                    \"a_type\": \"hamburger\"
+                },
+                {
+                    \"q6\": \"Close your eyes and imagine yourself in a different place. Where are you?\",
+                    \"a_type\": \"beach\"
                 }
             ]
         }
