@@ -42,7 +42,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, Boolean> {
         Request request = new Request.Builder()
                 .url(urls[0])
                 .addHeader("Connection","close")
-                .addHeader("content-type", "application/jpeg")
+                .addHeader("content-type", "image/jpeg")
                 .build();
 
         Response response = null;

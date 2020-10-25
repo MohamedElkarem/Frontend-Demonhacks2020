@@ -52,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mImageView = (ImageView) findViewById(R.id.main_image_view);
     }
 
     public void moveToQuestion(View view) throws InterruptedException, IOException, ExecutionException {
